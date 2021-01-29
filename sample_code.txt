@@ -1,0 +1,4 @@
+<블록체인 - 현재 비트코인 시세 코드>
+from blockchain import exchangerates
+tk = exchangerates.get_ticker()
+print('1bit=', tk['KRW'].p15min, 'KRW')
