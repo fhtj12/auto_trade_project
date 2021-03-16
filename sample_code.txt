@@ -2,3 +2,253 @@
 from blockchain import exchangerates
 tk = exchangerates.get_ticker()
 print('1bit=', tk['KRW'].p15min, 'KRW')
+
+from os import name
+from util import formula
+from util import common
+
+from data.naver_web import naver_finance as nf
+
+result = nf.make_naver_finance_url("068270", page=1)
+
+"""
+print("hello world")
+word = "abcde"
+print(word[-1])
+
+print("SEC CAGR : {:.2%}".format(formula.getCAGR(65300, 2669000, 20)))
+
+print(common.formatNumber(12345678))
+"""
+
+print(type(formula.getCAGR(65300, 2669000, 20)))
+
+class NasdaqStock : 
+    """Class for NASDAQ stocks""" # 독스트링
+    count = 0
+    def __init__(self, symbol, price) -> None:
+        """Constructor for NasdaqStock"""
+        self.symbol = symbol
+        self.price = price
+        NasdaqStock.count += 1
+        print('Calling __init__({}, {:.2f}) > count : {}'.format(self.symbol, self.price, self.count))
+
+    def __del__(self) : 
+        """Destructor for NasdaqStock"""
+        print('Calling __del__({})'.format(self))
+
+#gg = NasdaqStock('GOOG', 1154.05)
+
+"""
+import requests
+from PIL import Image
+url = 'http://bit.ly/2JnsHnT'
+r = requests.get(url, stream = True).raw
+
+img = Image.open(r)
+img.show()
+img.save('src.png')
+
+BUF_SIZE = 1024
+with open('src.png', 'rb') as sf, open('dst.png', 'wb') as df : 
+    while True : 
+        data = sf.read(BUF_SIZE)
+        if not data : 
+            break
+        df.write(data)
+"""
+
+import pandas as pd
+
+s = pd.Series([0.0, 3.6, 2.0, 5.8, 4.2, 8.0])
+#print(s)
+s.index = pd.Index([0.0, 1.2, 1.8, 3.0, 3.6, 4.8])
+s.index.name = 'MY_IDX'
+s.name = 'MY_SERIES'
+#print(s)
+
+s[5.9] = 5.5
+ser = pd.Series([6.7, 4.2], index=[6.8, 8.0])
+s = s.append(ser)
+#print('\n', s, '\n')
+#print(s.index[:], '\n')
+#print(s.values[:], '\n')
+
+s.drop(8.0)
+
+#print(s.describe())
+
+import matplotlib.pyplot as plt
+
+"""
+plt.title("ELLIOTT_WAVE")
+plt.plot(s, 'bs--')
+plt.xticks(s.index)
+plt.yticks(s.values)
+plt.grid(True)
+plt.show()
+"""
+
+"""
+df = pd.DataFrame({'KOSPI' : [1915, 1961, 2026, 2467, 2041]
+                , 'KOSDAQ' : [542, 682, 631, 798, 675]}
+                , index=[2014, 2015, 2016, 2017, 2018])
+"""
+
+#df.describe()
+#df.info()
+
+"""
+kospi = pd.Series([1915, 1961, 2026, 2467, 2041]
+            , index=[2014, 2015, 2016, 2017, 2018], name='KOSPI')
+
+kosdaq = pd.Series([542, 682, 631, 798, 675]
+            , index=[2014, 2015, 2016, 2017, 2018], name='KOSDAQ')
+
+df = pd.DataFrame({kospi.name : kospi, kosdaq.name : kosdaq})
+
+for i in df.index : 
+    print(i, df['KOSPI'][i], df['KOSDAQ'][i])
+"""
+
+from data.yahoo_3rd import finance as yf
+
+sec = yf.getData('005930.KS', start_date='2018-05-04')
+msft = yf.getData('MSFT', start_date='2018-05-04')
+#print(sec)
+#print(msft)
+#print(type(sec))
+#print(type(sec['Close']))
+
+sec_dpc = formula.getDailyPerChange(sec['Close'], sec['Close'].shift(1))
+#print(type(formula.getDailyPerChange(sec['Close'], sec['Close'].shift(1))))
+#print(sec['Close'])
+#print(sec['Close'].shift(1))
+#print(sec_dpc)
+sec_dpc.iloc[0] = 0
+#plt.hist(sec_dpc, bins=10)
+#plt.grid(True)
+#plt.show()
+
+#print(type(sec_dpc.describe()))
+#print(sec_dpc.describe()['min'])
+
+sec_dpc_cs = sec_dpc.cumsum()
+
+msft_dpc = formula.getDailyPerChange(msft['Close'], msft['Close'].shift(1))
+msft_dpc.iloc[0] = 0
+msft_dpc_cs = msft_dpc.cumsum()
+
+"""
+plt.plot(sec.index, sec_dpc_cs, 'b', label='Samsung Electronics')
+plt.plot(msft.index, msft_dpc_cs, 'r--', label='Microsoft')
+plt.ylabel('Change %')
+plt.grid(True)
+plt.legend(loc='best')
+plt.show()
+
+yf.getData()
+"""
+
+# KOSPI의 MDD 구하기
+"""
+kospi = yf.getData('^KS11', start_date = '2004-01-04')
+
+window = 252
+peak = kospi['Adj Close'].rolling(window, min_periods = 1).max()
+drawdown = kospi['Adj Close'] / peak - 1.0
+max_dd = drawdown.rolling(window, min_periods = 1).min()
+
+plt.figure(figsize=(9, 7))
+plt.subplot(211)
+kospi['Close'].plot(label = 'KOSPI', title = 'KOSPI MOD', grid = True, legend = True)
+plt.subplot(212)
+drawdown.plot(c = 'blue', label = 'KOSPI DD', grid = True, legend = True)
+max_dd.plot(c = 'red', label = 'KOSPI MOD', grid = True, legend = True)
+plt.show()
+"""
+
+# KOSPI와 다우존스 지수 비교
+"""
+## 단순 비교
+dow = yf.getData('^DJI', start_date = '2000-01-04')
+kospi = yf.getData('^KS11', start_date = '2000-01-04')
+
+plt.figure(figsize = (9, 5))
+plt.plot(dow.index, dow.Close, 'r--', label = 'Dow Jones Industrial') # 붉은 점선
+plt.plot(kospi.index, kospi.Close, 'b', label = 'KOSPI') # 푸른 실선
+plt.grid(True)
+plt.legend(loc = 'best')
+plt.show()
+"""
+## 지수화 비교
+"""
+dow = yf.getData('^DJI', start_date = '2000-01-04')
+kospi = yf.getData('^KS11', start_date = '2000-01-04')
+d = (dow.Close / dow.Close.loc['2000-01-04']) * 100
+k = (kospi.Close / kospi.Close.loc['2000-01-04']) * 100
+
+plt.figure(figsize=(9, 5))
+plt.plot(d.index, d, 'r', label = 'Dow Jones Industrial')
+plt.plot(k.index, k, 'b', label = 'KOSPI')
+plt.grid(True)
+plt.legend(loc = 'best')
+plt.show()
+"""
+
+## 회귀 분석
+"""
+from scipy import stats
+dow = yf.getData('^DJI', start_date = '2000-01-04')
+kospi = yf.getData('^KS11', start_date = '2000-01-04')
+
+df = pd.DataFrame({'X' : dow['Close'], 'Y' : kospi['Close']})
+df = df.fillna(method='bfill') # NaN 을 제거
+df = df.fillna(method='ffill')
+
+regr = stats.linregress(df.X, df.Y)
+regr_line = f'Y = {regr.slope:.2f} * X + {regr.intercept:.2f}' # 범례에 회귀식 표시하는 레이블 문자
+
+plt.figure(figsize=(7, 7))
+plt.plot(df.X, df.Y, '.')
+plt.plot(df.X, regr.slope * df.X + regr.intercept, 'r')
+plt.legend(['DOW X KOSPI'], regr_line)
+plt.title(f'DOW X KOSPI (R = {regr.rvalue:.2f})') # 상관계수
+plt.xlabel('Dow Jones Industrial Average')
+plt.ylabel('KOSPI')
+plt.show()
+"""
+
+## 상장법인 목록 읽기
+"""
+df = pd.read_html('https://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13')[0]
+df['종목코드'] = df['종목코드'].map('{:06d}'.format)
+df = df.sort_values(by='종목코드') # ascending=False 를 넣으면 내림차
+print(df)
+"""
+
+## 네이버 증권에서 웹 스크래핑해오기 (마지막 페이지 읽기)
+"""
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+url = 'https://finance.naver.com/item/sise_day.nhn?code=068270&page=1'
+with urlopen(url) as doc : 
+    html = BeautifulSoup(doc, 'lxml')
+    pgrr = html.find('td', class_ = 'pgRR') # pgRR은 Page Right Rigth의 약자로 페이지 가장 마지막이라는 뜻
+    s = str(pgrr.a['href']).split('=')
+    last_page = s[-1]
+print(last_page)
+
+df = pd.DataFrame()
+sise_url = 'https://finance.naver.com/item/sise_day.nhn?code=068270'
+
+for page in range(1, int(last_page) + 1) : 
+    page_url = '{}&page={}'.format(sise_url, page)
+    df = df.append(pd.read_html(page_url, header=0)[0])
+
+df = df.dropna()
+
+print(df)
+"""
+
+
