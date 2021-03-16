@@ -2,6 +2,10 @@ from os import name
 from util import formula
 from util import common
 
+from data.naver_web import naver_finance as nf
+
+result = nf.make_naver_finance_url("068270", page=1)
+
 """
 print("hello world")
 word = "abcde"
@@ -219,6 +223,7 @@ print(df)
 """
 
 ## 네이버 증권에서 웹 스크래핑해오기 (마지막 페이지 읽기)
+"""
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 url = 'https://finance.naver.com/item/sise_day.nhn?code=068270&page=1'
@@ -229,8 +234,16 @@ with urlopen(url) as doc :
     last_page = s[-1]
 print(last_page)
 
+df = pd.DataFrame()
+sise_url = 'https://finance.naver.com/item/sise_day.nhn?code=068270'
 
+for page in range(1, int(last_page) + 1) : 
+    page_url = '{}&page={}'.format(sise_url, page)
+    df = df.append(pd.read_html(page_url, header=0)[0])
 
+df = df.dropna()
 
+print(df)
+"""
 
 
