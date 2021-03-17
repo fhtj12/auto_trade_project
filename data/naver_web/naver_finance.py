@@ -1,8 +1,7 @@
-from error.parameter import *
 from util import constants as const
 from util import web
 from util import common
-from error.parameter import *
+from error.system import *
 
 def make_naver_finance_url(code, **kwargs) : 
 
@@ -18,7 +17,7 @@ def make_naver_finance_url(code, **kwargs) :
         [type]: [description]
     """
 
-    if code is None : raise ParameterError()
+    if code is None : raise SystemError('ERR_PARAM_REQUIRED')
 
     # 기본 url
     url = common.concatStr([const.url.getURL('URL_NAVER_ITEM'), code])

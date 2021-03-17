@@ -15,7 +15,7 @@ class url :
         return url.__url_dict__[url_code]
 
 class error : 
-    """[시스템 에러 모음]
+    """[시스템 에러 메세지 모음]
 
     Returns:
         [type]: [description]
@@ -24,6 +24,7 @@ class error :
     __msg__ = {
         "ERR_PARAM_REQUIRED" : "필수 파라미터가 없습니다."
         , "ERR_PARAM_TYPE" : "파라미터 타입이 틀립니다."
+        , "ERR_SQL_TYPE" : "SQL 종류 설정이 잘못되었습니다."
     }
 
     @staticmethod

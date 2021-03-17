@@ -1,12 +1,14 @@
-from pymysql import connect
 from pymysqlpool.pool import Pool
 
-pool = Pool(host="localhost", port=3306, user="root", password="1234", db="test")
-pool.init()
+class ConnectionPool : 
+    # private static variable
+    __pool = Pool(host="localhost", port=3306, user="root", password="dlawls12", db="test")
+    __pool.init()
+    
+    @classmethod
+    def getConnection(cls) : 
+        return cls.__pool.get_conn()
 
-connection = pool.get_conn()
-cur = connection.cursor()
-cur.execute('SELECT * FROM `pet` WHERE `name`=%s', args=("Puffball", ))
-print(cur.fetchone())
-
-pool.release(connection)
+    @classmethod
+    def releaseConnection(cls, connection) : 
+        cls.__pool.release(connection)

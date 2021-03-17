@@ -1,4 +1,4 @@
-from error.parameter import *
+from error.system import *
 
 def formatNumber(num) :
     """[숫자 포맷]
@@ -20,5 +20,17 @@ def concatStr(params) :
     Returns:
         [string]: 리스트의 문자열들을 모두 concat한 결과 문자열
     """
-    if type(params) is not list : raise ParameterTypeError()
+    if type(params) is not list : raise SystemError('ERR_PARAM_TYPE')
     return ''.join(map(str, params))
+
+def makeErrorMsg(msg_code, err_msg) : 
+    """[에러 메세지 양식에 맞게 만드는 함수]
+
+    Args:
+        msg_code ([string]): [메세지 코드]
+        err_msg ([string]): [메세지 전체 내용 (constants.error.getErrorMsg())]
+
+    Returns:
+        [string]: [에러 메세지]
+    """
+    return concatStr(["[", msg_code, "] ", err_msg])
