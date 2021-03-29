@@ -3,12 +3,15 @@ from error.system import *
 
 class SqlMapper : 
     @staticmethod
-    def createSqlMapper () : 
+    def createSqlMapper() : 
         pass
 
     @staticmethod
     def getQuery(sql_type, query_id) : 
         queryStr = query_router[query_id]()
+        if queryStr is not None : 
+            raise SystemError('ERR_SQL_UNDEFINED')
+
         if queryStr.lower().startswith(sql_type) :
             return queryStr
         else : 
