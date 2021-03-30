@@ -3,11 +3,15 @@ from data.investar import Analyzer
 from db.db_manager import DBManager
 
 # DB Connection test
-db = DBManager()
-with db : 
-    result = db.select("fetchTest")
+# db = DBManager()
+# with db : 
+#     result = db.select("fetchTest")
 
-print(type(result))
+# print(type(result))
+
+from db.sql.test import Test
+b = Test(id = '1')
+b.save()
 
 # mk = Analyzer.MarketDB()
 # df = mk.get_daily_price('005930', '2017-07-10', '2018-06-30')

@@ -1,6 +1,6 @@
-def fetchTest() :
-    return "select 1 from dual"
+from django.db import models
 
-# class Test : 
-#     def __init__(self) -> None:
-#         self.id = 
+class Test(models.Model) : 
+    id = models.CharField(max_length=1)
+    def __str__(self) -> str:
+        return self.id

@@ -32,7 +32,13 @@ pip install blockchain
 pip install django
 
 ## Django 프로젝트 생성 (cmd)
+- 32bit 환경으로 변경
+'32bit 가상화'의 활성화 부분 참고.
 - 프로젝트 디렉토리에서 수행
-VirtualEnv\Py387_32\Scripts\django-admin.exe startproject ats_web
+VirtualEnv\Py387_32\Scripts\django-admin.exe startproject auto_trade_web
+- app 생성
+cd auto_trade_web
+python manage.py startapp application
 - 실행
-python ats_web\manage.py runserver 8080
+python auto_trade_web\manage.py runserver 8080
+- vscode 실행은 .vscode 폴더의 launch.json 참고 (settings.json을 참고하여 32bit 환경으로 실행되도록 수정.)
