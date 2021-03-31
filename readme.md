@@ -18,7 +18,9 @@
 
 # 프로젝트 세팅법
 ## 환경변수 등록
+```
 C:\(유저 디렉토리 경로)\AppData\Local\Programs\Python\Python38
+```
 
 ## 라이브러리 일괄 설치
 ```
