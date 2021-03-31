@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'drfoe$@(n%#)e49fm&%$&ki_1-88g-slbulphj3xqkhi++z3io'
+SECRET_KEY = '#fc=3(2o@kso0#7=-dz5k$kr2h3*^drf!te+s*x3%)o#+s9ec6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -73,13 +73,8 @@ WSGI_APPLICATION = 'auto_trade_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
+from . import db_settings
+DATABASES = db_settings.DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

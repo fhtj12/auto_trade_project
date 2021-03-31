@@ -12,6 +12,7 @@
             "args": [
                 "runserver",
                 "--noreload",
+                "8080",
             ],
             "django": true
         }

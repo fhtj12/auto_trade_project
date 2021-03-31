@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 from data.investar import Analyzer
 from db.db_manager import DBManager
 
@@ -12,6 +11,8 @@ from db.db_manager import DBManager
 from db.sql.test import Test
 b = Test(id = '1')
 b.save()
+
+import matplotlib.pyplot as plt
 
 # mk = Analyzer.MarketDB()
 # df = mk.get_daily_price('005930', '2017-07-10', '2018-06-30')

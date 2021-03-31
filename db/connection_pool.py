@@ -2,7 +2,7 @@ from pymysqlpool.pool import Pool
 
 class ConnectionPool : 
     # private static variable
-    __pool = Pool(host="localhost", port=3306, user="root", password="dlawls12", db="test")
+    __pool = Pool(host="localhost", port=3306, user="root", password="mysql4500!", db="test")
     __pool.init()
     
     @classmethod

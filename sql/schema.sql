@@ -1,0 +1,1 @@
+CREATE DATABASE `auto_trade_sys` DEFAULT CHARACTER SET utf8mb4;

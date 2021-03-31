@@ -133,3 +133,6 @@ dmypy.json
 
 # VirtualEnv 제외
 VirtualEnv/
+
+# DB 설정파일 제외
+auto_trade_web/auto_trade_web/db_settings.py
