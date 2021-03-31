@@ -18,7 +18,7 @@
 
 # 프로젝트 세팅법
 ## 환경변수 등록
-C:\Users\user\AppData\Local\Programs\Python\Python38
+C:\(유저 디렉토리 경로)\AppData\Local\Programs\Python\Python38
 
 ## 라이브러리 일괄 설치
 ```
@@ -56,7 +56,7 @@ python -m venv Py387_32
 ```
 - pyenv.cfg 파일 수정
 ```
-home = C:\Users\user\AppData\Local\Programs\Python\Python38-32
+home = C:\(유저 디렉토리 경로)\AppData\Local\Programs\Python\Python38-32
 include-system-site-packages = false
 version = 3.8.7
 ```
