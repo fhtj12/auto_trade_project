@@ -25,6 +25,28 @@ C:\Users\user\AppData\Local\Programs\Python\Python38
 pip install -r requirements.txt
 ```
 
+## (선택) vscode 설정
+```
+(settings.json)
+"python.pythonPath": "C:\\(유저 디렉토리 경로)\\AppData\\Local\\Programs\\Python\\Python38\\python.exe"
+
+(launch.json)
+"configurations": [
+    {
+        "name": "Python: Django",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}\\auto_trade_web\\manage.py",
+        "args": [
+            "runserver",
+            "--noreload",
+            "8080",
+        ],
+        "django": true
+    }
+]
+```
+
 ## 32bit 가상화 (cmd)
 - 프로젝트 디렉토리에서 수행
 ```
@@ -66,4 +88,3 @@ python auto_trade_web\manage.py runserver 8080
 auto_trade_web\auto_trade_web\db_settings.py.sample 파일을 복사 후 이름을 변경해 db_settings.py를 만들고 설정 변경.
 - 마이그레이션
 sql 폴더내의 schema.sql로 스키마 생성 후 auto_trade_web 경로에서 python manage.py migrate 실행
-- vscode 실행은 .vscode 폴더의 launch.json 참고 (settings.json을 참고하여 32bit 환경으로 실행되도록 수정.)

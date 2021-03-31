@@ -128,8 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# pycharm
+# 프로젝트 세팅
 .idea/
+.vscode/
 
 # VirtualEnv 제외
 VirtualEnv/
